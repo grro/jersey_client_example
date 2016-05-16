@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class JerseyClientExampleApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(JerseyClientExampleApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(JerseyClientExampleApplication.class, args);
+    }
 }

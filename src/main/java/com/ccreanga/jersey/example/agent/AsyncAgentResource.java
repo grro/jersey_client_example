@@ -18,9 +18,9 @@ import java.util.*;
 import java.util.concurrent.*;
 import java.util.stream.Collectors;
 
-@Path("agent/completion")
+@Path("agent/async")
 @Produces("application/json")
-public class CompletionStageAgentResource {
+public class AsyncAgentResource {
 
     @Uri("remote/destination")
     private WebTarget destination;
@@ -33,7 +33,7 @@ public class CompletionStageAgentResource {
 
     private final ExecutorService executor;
 
-    public CompletionStageAgentResource() {
+    public AsyncAgentResource() {
         executor = new ScheduledThreadPoolExecutor(20,
                 new ThreadFactoryBuilder().setNameFormat("jersey-rx-client-completion-%d").build());
     }
@@ -59,12 +59,9 @@ public class CompletionStageAgentResource {
     private CompletionStage<List<Destination>> visited(final RxWebTarget<RxCompletionStageInvoker> rxDestination,
                                                        final Queue<String> errors) {
         return rxDestination.path("visited").request()
-                // Identify the user.
-                .header("Rx-User", "Java8")
-                // Reactive invoker.
                 .rx()
-                // Return a list of destinations.
-                .get(new GenericType<List<Destination>>() {})
+                .get(new GenericType<List<Destination>>() {
+                })
                 .exceptionally(throwable -> {
                     errors.offer("Visited: " + throwable.getMessage());
                     return Collections.emptyList();
@@ -76,12 +73,9 @@ public class CompletionStageAgentResource {
         // Recommended places.
         final CompletionStage<List<Destination>> recommended = rxDestination.path("recommended")
                 .request()
-                // Identify the user.
-                .header("Rx-User", "Java8")
-                // Reactive invoker.
                 .rx()
-                // Return a list of destinations.
-                .get(new GenericType<List<Destination>>() {})
+                .get(new GenericType<List<Destination>>() {
+                })
                 .exceptionally(throwable -> {
                     errors.offer("Recommended: " + throwable.getMessage());
                     return Collections.emptyList();

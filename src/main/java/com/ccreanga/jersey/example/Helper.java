@@ -22,7 +22,7 @@ public class Helper {
     }
 
     public static List<String> getCountries(final int limit) {
-        return getCountries(limit, Collections.<String>emptyList());
+        return getCountries(limit, Collections.emptyList());
     }
 
     public static List<String> getCountries(final int limit, final List<String> exclusions) {

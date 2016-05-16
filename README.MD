@@ -1,32 +1,5 @@
-Reactive Clients Jersey Reactive Client Extensions Example
-==========================================================
 
-This example demonstrates how data from multiple resources and in
-various formats (json, xml) can be combined into a form suitable to ones
-requirements. The example show and compares usage of standard JAX-RS
-sync client, JAX-RS async client, Jersey's Observable (RxJava) client
-extension, Jersey's CompletionStage (Java 8) client extension and
-Jersey's ListenableFuture (Guava) client extension.
-
-The application consists of two parts:
-
--   **"Remote"**, that can be considered to be deployed on a
-    remote machine. In fact each resource from
-    `org.glassfish.jersey.examples.rx.remote` package can be deployed on
-    a separate remote machine as every resource represents a service of
-    it's own.
-
--   **Note:** `DestinationResource` returns response entities as `JSON`
-    while `CalculationResource` and `ForecastResource` as `XML`.
-
--   **"Agent"**, which is a synchronization/orchestration layer. This
-    layer, also deployed as a server application, fetches data from all
-    needed resources (using JAX-RS Client API) and combine
-    them together. The combined result is then sent to the client that
-    invoked the original request on the orchestration layer.
-
-Every "agent" resource (package `org.glassfish.jersey.examples.rx.agent`)
-invokes the following requests to the "remote" resource:
+Every agent invokes the following requests to the "remote" resource:
 
 -   Obtain **visited** destinations for a user. (User identification is
     propagated via request header and basically everything about a user
@@ -131,18 +104,3 @@ This deploys current example using Jetty. You can access the application at:
 -   <http://localhost:8080/rx/agent/observable>
 -   <http://localhost:8080/rx/agent/completion>
 
-Resources
----------
-
-This examples is using the following (3-rd party) libraries:
-
-**RxJava** by Netflix
--   [GitHub](https://github.com/ReactiveX/RxJava)
--   [GitHub.Wiki](https://github.com/ReactiveX/RxJava/wiki)
--   [JavaDoc](http://reactivex.io/RxJava/javadoc/)
-
-**Guava** by Google
--   [Homepage](https://code.google.com/p/guava-libraries/)
--   [ListenableFuture
-    Explained](https://code.google.com/p/guava-libraries/wiki/ListenableFutureExplained)
--   [JavaDoc](http://docs.guava-libraries.googlecode.com/git/javadoc/index.html?overview-summary.html)

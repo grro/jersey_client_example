@@ -34,10 +34,9 @@ public class SyncAgentResource {
         // Obtain visited destinations.
         try {
             response.setVisited(destination.path("visited").request()
-                    // Identify the user.
-                    .header("Rx-User", "Sync")
                     // Return a list of destinations
-                    .get(new GenericType<List<Destination>>() {}));
+                    .get(new GenericType<List<Destination>>() {
+                    }));
         } catch (final Throwable throwable) {
             errors.offer("Visited: " + throwable.getMessage());
         }
@@ -46,10 +45,9 @@ public class SyncAgentResource {
         List<Destination> recommended = Collections.emptyList();
         try {
             recommended = destination.path("recommended").request()
-                    // Identify the user.
-                    .header("Rx-User", "Sync")
                     // Return a list of destinations.
-                    .get(new GenericType<List<Destination>>() {});
+                    .get(new GenericType<List<Destination>>() {
+                    });
         } catch (final Throwable throwable) {
             errors.offer("Recommended: " + throwable.getMessage());
         }

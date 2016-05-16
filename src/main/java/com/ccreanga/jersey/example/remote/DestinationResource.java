@@ -3,6 +3,7 @@ package com.ccreanga.jersey.example.remote;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
@@ -17,50 +18,26 @@ import com.ccreanga.jersey.example.Helper;
 import com.ccreanga.jersey.example.domain.Destination;
 import org.glassfish.jersey.server.ManagedAsync;
 
-import com.google.common.collect.Lists;
-
 
 @Singleton
 @Path("remote/destination")
 @Produces("application/json")
 public class DestinationResource {
 
-    private static final Map<String, List<String>> VISITED = new HashMap<>();
-
-    static {
-        VISITED.put("Sync", Helper.getCountries(5));
-        VISITED.put("Async", Helper.getCountries(5));
-        VISITED.put("Guava", Helper.getCountries(5));
-        VISITED.put("RxJava", Helper.getCountries(5));
-        VISITED.put("Java8", Helper.getCountries(5));
-    }
-
     @GET
     @ManagedAsync
     @Path("visited")
-    public List<Destination> visited(@HeaderParam("Rx-User") @DefaultValue("KO") final String user) {
-        // Simulate long-running operation.
+    public List<Destination> visited() {
         Helper.sleep();
-
-        if (!VISITED.containsKey(user)) {
-            VISITED.put(user, Helper.getCountries(5));
-        }
-
-        return Lists.transform(VISITED.get(user), Destination::new);
+        return Helper.getCountries(5).stream().map(Destination::new).collect(Collectors.toList());
     }
 
     @GET
     @ManagedAsync
     @Path("recommended")
-    public List<Destination> recommended(@HeaderParam("Rx-User") @DefaultValue("KO") final String user,
-                                         @QueryParam("limit") @DefaultValue("5") final int limit) {
-        // Simulate long-running operation.
+    public List<Destination> recommended() {
         Helper.sleep();
-
-        if (!VISITED.containsKey(user)) {
-            VISITED.put(user, Helper.getCountries(5));
-        }
-
-        return Lists.transform(Helper.getCountries(limit, VISITED.get(user)), Destination::new);
+        List<String> excluded = Helper.getCountries(5);
+        return Helper.getCountries(5, excluded).stream().map(Destination::new).collect(Collectors.toList());
     }
 }

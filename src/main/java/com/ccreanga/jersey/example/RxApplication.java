@@ -1,6 +1,6 @@
 package com.ccreanga.jersey.example;
 
-import com.ccreanga.jersey.example.agent.CompletionStageAgentResource;
+import com.ccreanga.jersey.example.agent.AsyncAgentResource;
 import com.ccreanga.jersey.example.agent.SyncAgentResource;
 import com.ccreanga.jersey.example.remote.CalculationResource;
 import com.ccreanga.jersey.example.remote.DestinationResource;
@@ -26,7 +26,7 @@ public class RxApplication extends ResourceConfig {
 
         // Agent (Client) Resources.
         register(SyncAgentResource.class);
-        register(CompletionStageAgentResource.class);
+        register(AsyncAgentResource.class);
 
         // Providers.
         register(JacksonFeature.class);

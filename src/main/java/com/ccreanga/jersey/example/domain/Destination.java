@@ -19,4 +19,11 @@ public class Destination {
     public void setDestination(final String destination) {
         this.destination = destination;
     }
+
+    @Override
+    public String toString() {
+        return "Destination{" +
+                "destination='" + destination + '\'' +
+                '}';
+    }
 }
