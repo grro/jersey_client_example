@@ -19,6 +19,7 @@ public class ProfileResource {
     @ManagedAsync
     @Path("/{user}")
     public Profile calculation(@PathParam("user") final String user) {
+        System.out.println("ProfileResource was invoked");
         // Simulate long-running operation.
         Helper.sleep(350);
 

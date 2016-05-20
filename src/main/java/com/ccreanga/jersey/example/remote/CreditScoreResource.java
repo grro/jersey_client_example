@@ -23,6 +23,7 @@ public class CreditScoreResource {
     @Path("/{user}")
     public CreditScore calculation(@PathParam("user") final String user) {
         // Simulate long-running operation.
+        System.out.println("CreditScoreResource was invoked");
         Helper.sleep(350);
 
         return new CreditScore(new Random().nextInt(100));

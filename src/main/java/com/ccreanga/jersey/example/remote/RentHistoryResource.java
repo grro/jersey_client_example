@@ -23,6 +23,7 @@ public class RentHistoryResource {
     @ManagedAsync
     @Path("/{user}")
     public RentHistory calculation(@PathParam("user") final String user) {
+        System.out.println("RentHistoryResource was invoked");
         // Simulate long-running operation.
         Helper.sleep(350);
 
