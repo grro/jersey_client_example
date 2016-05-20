@@ -2,9 +2,7 @@ package com.ccreanga.jersey.example;
 
 import com.ccreanga.jersey.example.agent.AsyncAgentResource;
 import com.ccreanga.jersey.example.agent.SyncAgentResource;
-import com.ccreanga.jersey.example.remote.CalculationResource;
-import com.ccreanga.jersey.example.remote.DestinationResource;
-import com.ccreanga.jersey.example.remote.ForecastResource;
+import com.ccreanga.jersey.example.remote.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import org.glassfish.jersey.jackson.JacksonFeature;
@@ -20,6 +18,12 @@ public class RxApplication extends ResourceConfig {
 
     public RxApplication() {
         // Remote (Server) Resources.
+
+        register(CreditScoreResource.class);
+        register(ProfileResource.class);
+        register(RentHistoryResource.class);
+
+
         register(DestinationResource.class);
         register(CalculationResource.class);
         register(ForecastResource.class);
