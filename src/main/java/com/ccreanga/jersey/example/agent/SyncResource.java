@@ -1,7 +1,5 @@
 package com.ccreanga.jersey.example.agent;
 
-import com.ccreanga.jersey.example.domain.AgentResponse;
-
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -11,8 +9,8 @@ import javax.ws.rs.Produces;
 public class SyncResource {
 
     @GET
-    public AgentResponse sync() {
-        return null;
+    public void sync() {
+
     }
 
 }

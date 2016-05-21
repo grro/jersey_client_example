@@ -1,7 +1,8 @@
 package com.ccreanga.jersey.example;
 
-import com.ccreanga.jersey.example.agent.AsyncAgentResource;
+import com.ccreanga.jersey.example.agent.AsyncResource;
 import com.ccreanga.jersey.example.agent.SyncAgentResource;
+import com.ccreanga.jersey.example.agent.SyncResource;
 import com.ccreanga.jersey.example.remote.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -22,15 +23,15 @@ public class RxApplication extends ResourceConfig {
         register(CreditScoreResource.class);
         register(ProfileResource.class);
         register(RentHistoryResource.class);
-
-
-        register(DestinationResource.class);
-        register(CalculationResource.class);
-        register(ForecastResource.class);
+        register(LoanResource.class);
 
         // Agent (Client) Resources.
         register(SyncAgentResource.class);
-        register(AsyncAgentResource.class);
+
+
+        register(SyncResource.class);
+        register(AsyncResource.class);
+
 
         // Providers.
         register(JacksonFeature.class);
