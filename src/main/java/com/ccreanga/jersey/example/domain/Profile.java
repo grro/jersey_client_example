@@ -1,15 +1,25 @@
 package com.ccreanga.jersey.example.domain;
 
+import com.google.common.collect.ImmutableSet;
+import net.oneandone.troilus.Field;
+
+import java.util.Optional;
 import java.util.UUID;
 
 public class Profile {
-
+    @Field(name = "name")
     private String name;
+    @Field(name = "age")
     private int age;
+    @Field(name = "payment")
     private int monthlyPayment;
+    @Field(name = "id")
     private UUID uuid;
+    @Field(name = "credit_id")
     private UUID creditUuid;
+    @Field(name = "rent_id")
     private UUID rentUuid;
+
 
     public Profile() {
     }

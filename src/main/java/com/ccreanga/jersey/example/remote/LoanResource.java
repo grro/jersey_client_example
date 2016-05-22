@@ -6,7 +6,10 @@ import org.glassfish.jersey.server.ManagedAsync;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
 
+@Path("remote/loan")
+@Produces("application/json")
 public class LoanResource {
 
     @GET

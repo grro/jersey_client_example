@@ -10,6 +10,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Response;
 
 import com.ccreanga.jersey.example.Helper;
 import com.ccreanga.jersey.example.domain.Calculation;
@@ -28,18 +29,22 @@ public class CreditScoreResource {
     static Map<UUID,CreditScore> score = new ConcurrentHashMap<>();
     static{
         score.put(uuid1_cr, new CreditScore(2));
-        score.put(uuid1_cr, new CreditScore(5));
+        score.put(uuid2_cr, new CreditScore(5));
     }
 
 
     @GET
     @ManagedAsync
     @Path("/{uuid}")
-    public CreditScore calculation(@PathParam("uuid") final UUID uuid) {
+    public Response calculation(@PathParam("uuid") final UUID uuid) {
         // Simulate long-running operation.
         System.out.println("CreditScoreResource was invoked at "+System.currentTimeMillis());
         Helper.sleep(350);
+        CreditScore creditScore = score.get(uuid);
+        if (creditScore!=null)
+            return Response.ok(creditScore).build();
+        return Response.status(Response.Status.NOT_FOUND).build();
 
-        return score.get(uuid);
     }
+
 }

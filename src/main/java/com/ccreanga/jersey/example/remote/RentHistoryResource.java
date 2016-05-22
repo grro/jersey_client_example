@@ -10,6 +10,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Response;
 
 import com.ccreanga.jersey.example.Helper;
 import com.ccreanga.jersey.example.domain.Calculation;
@@ -35,11 +36,14 @@ public class RentHistoryResource {
     @GET
     @ManagedAsync
     @Path("/{uuid}")
-    public RentHistory calculation(@PathParam("uuid") final UUID uuid) {
+    public Response calculation(@PathParam("uuid") final UUID uuid) {
         System.out.println("RentHistoryResource was invoked at "+System.currentTimeMillis());
         // Simulate long-running operation.
         Helper.sleep(350);
+        RentHistory rentHistory = history.get(uuid);
+        if (rentHistory!=null)
+            return Response.ok(rentHistory).build();
+        return Response.status(Response.Status.NOT_FOUND).build();
 
-        return history.get(uuid);
     }
 }

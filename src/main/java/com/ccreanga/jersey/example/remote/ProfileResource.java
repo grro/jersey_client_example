@@ -22,8 +22,8 @@ public class ProfileResource {
 
     static Map<UUID,Profile> users = new ConcurrentHashMap<>();
     static{
-        users.put(uuid1, new Profile("ion",uuid1,uuid1_cr,uuid1_rent,22,2000));
-        users.put(uuid2, new Profile("vasile",uuid2,uuid2_cr,uuid2_rent,28,2400));
+        users.put(uuid1, new Profile("ion",uuid1_rent,uuid1_cr,uuid1,22,100));
+        users.put(uuid2, new Profile("vasile",uuid2_rent,uuid2_cr,uuid2,28,140));
     }
 
     @GET
