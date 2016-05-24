@@ -6,24 +6,24 @@ import com.ccreanga.jersey.example.domain.RentHistory;
 
 import java.util.Optional;
 
-public class UserData {
-    Profile profile;
-    CreditScore creditScore;
-    RentHistory rentHistory;
+public class UserExtendedProfile {
+    private Profile profile;
+    private CreditScore creditScore;
+    private RentHistory rentHistory;
 
     @Override
     public String toString() {
-        return "UserData{" +
+        return "UserExtendedProfile{" +
                 "profile=" + profile +
                 ", creditScore=" + creditScore +
                 ", rentHistory=" + rentHistory +
                 '}';
     }
 
-    public UserData() {
+    public UserExtendedProfile() {
     }
 
-    public UserData setProfile(Profile profile) {
+    public UserExtendedProfile setProfile(Profile profile) {
         this.profile = profile;
         return this;
     }
@@ -36,7 +36,7 @@ public class UserData {
         return creditScore==null?Optional.empty():Optional.of(creditScore);
     }
 
-    public UserData setCreditScore(CreditScore creditScore) {
+    public UserExtendedProfile setCreditScore(CreditScore creditScore) {
         this.creditScore = creditScore;
         return this;
     }
@@ -45,7 +45,7 @@ public class UserData {
         return rentHistory==null?Optional.empty():Optional.of(rentHistory);
     }
 
-    public UserData setRentHistory(RentHistory rentHistory) {
+    public UserExtendedProfile setRentHistory(RentHistory rentHistory) {
         this.rentHistory = rentHistory;
         return this;
     }

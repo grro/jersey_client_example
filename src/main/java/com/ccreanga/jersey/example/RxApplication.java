@@ -1,7 +1,6 @@
 package com.ccreanga.jersey.example;
 
 import com.ccreanga.jersey.example.agent.AsyncResource;
-import com.ccreanga.jersey.example.agent.SyncAgentResource;
 import com.ccreanga.jersey.example.agent.SyncResource;
 import com.ccreanga.jersey.example.remote.*;
 import com.fasterxml.jackson.databind.ObjectMapper;

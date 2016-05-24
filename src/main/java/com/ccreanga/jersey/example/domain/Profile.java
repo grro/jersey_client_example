@@ -1,36 +1,37 @@
 package com.ccreanga.jersey.example.domain;
 
-import com.google.common.collect.ImmutableSet;
-import net.oneandone.troilus.Field;
+import org.springframework.data.cassandra.mapping.Column;
+import org.springframework.data.cassandra.mapping.PrimaryKey;
+import org.springframework.data.cassandra.mapping.Table;
 
-import java.util.Optional;
 import java.util.UUID;
 
+@Table("security_attributes")
 public class Profile {
-    @Field(name = "name")
-    private String name;
-    @Field(name = "age")
-    private int age;
-    @Field(name = "payment")
-    private int monthlyPayment;
-    @Field(name = "id")
-    private UUID uuid;
-    @Field(name = "credit_id")
-    private UUID creditUuid;
-    @Field(name = "rent_id")
-    private UUID rentUuid;
 
+    @PrimaryKey
+    private UUID uuid;
+    @Column(value = "name")
+    private String name;
+    @Column(value = "age")
+    private int age;
+    @Column(value = "payment")
+    private int payment;
+    @Column(value = "id_credit")
+    private UUID creditUuid;
+    @Column(value = "id_rent")
+    private UUID rentUuid;
 
     public Profile() {
     }
 
-    public Profile(String name, UUID rentUuid, UUID creditUuid, UUID uuid, int age,int monthlyPayment) {
+    public Profile(String name, UUID rentUuid, UUID creditUuid, UUID uuid, int age,int payment) {
         this.name = name;
         this.rentUuid = rentUuid;
         this.creditUuid = creditUuid;
         this.uuid = uuid;
         this.age = age;
-        this.monthlyPayment = monthlyPayment;
+        this.payment = payment;
     }
 
     public String getName() {
@@ -73,12 +74,12 @@ public class Profile {
         this.rentUuid = rentUuid;
     }
 
-    public int getMonthlyPayment() {
-        return monthlyPayment;
+    public int getPayment() {
+        return payment;
     }
 
-    public void setMonthlyPayment(int monthlyPayment) {
-        this.monthlyPayment = monthlyPayment;
+    public void setPayment(int payment) {
+        this.payment = payment;
     }
 
     @Override
@@ -89,7 +90,7 @@ public class Profile {
         Profile profile = (Profile) o;
 
         if (age != profile.age) return false;
-        if (monthlyPayment != profile.monthlyPayment) return false;
+        if (payment != profile.payment) return false;
         if (name != null ? !name.equals(profile.name) : profile.name != null) return false;
         if (uuid != null ? !uuid.equals(profile.uuid) : profile.uuid != null) return false;
         if (creditUuid != null ? !creditUuid.equals(profile.creditUuid) : profile.creditUuid != null) return false;
@@ -101,7 +102,7 @@ public class Profile {
     public int hashCode() {
         int result = name != null ? name.hashCode() : 0;
         result = 31 * result + age;
-        result = 31 * result + monthlyPayment;
+        result = 31 * result + payment;
         result = 31 * result + (uuid != null ? uuid.hashCode() : 0);
         result = 31 * result + (creditUuid != null ? creditUuid.hashCode() : 0);
         result = 31 * result + (rentUuid != null ? rentUuid.hashCode() : 0);
@@ -113,7 +114,7 @@ public class Profile {
         return "Profile{" +
                 "name='" + name + '\'' +
                 ", age=" + age +
-                ", monthlyPayment=" + monthlyPayment +
+                ", payment=" + payment +
                 ", uuid=" + uuid +
                 ", creditUuid=" + creditUuid +
                 ", rentUuid=" + rentUuid +

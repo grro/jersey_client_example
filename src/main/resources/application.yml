@@ -1,0 +1,13 @@
+spring:
+  data:
+    cassandra:
+      port: 9142
+      keyspaceName: test
+      connectTimeoutMillis: 5000
+      readTimeoutMillis: 12000
+      loadBalancingPolicy: com.datastax.driver.core.policies.RoundRobinPolicy
+      contact-points: nvs-qa-cs01.vdlan.cinetic.de
+      username: cassandra
+      password: cassandra
+
+
