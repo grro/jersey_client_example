@@ -17,22 +17,15 @@ import javax.ws.rs.ext.ContextResolver;
 public class RxApplication extends ResourceConfig {
 
     public RxApplication() {
-        // Remote (Server) Resources.
 
         register(CreditScoreResource.class);
         register(ProfileResource.class);
         register(RentHistoryResource.class);
         register(LoanResource.class);
 
-        // Agent (Client) Resources.
-        register(SyncAgentResource.class);
-
-
         register(SyncResource.class);
         register(AsyncResource.class);
 
-
-        // Providers.
         register(JacksonFeature.class);
         register(ObjectMapperProvider.class);
     }

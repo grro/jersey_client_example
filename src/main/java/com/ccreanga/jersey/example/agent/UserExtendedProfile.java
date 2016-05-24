@@ -23,6 +23,12 @@ public class UserExtendedProfile {
     public UserExtendedProfile() {
     }
 
+    public UserExtendedProfile(Profile profile, CreditScore creditScore, RentHistory rentHistory) {
+        this.profile = profile;
+        this.creditScore = creditScore;
+        this.rentHistory = rentHistory;
+    }
+
     public UserExtendedProfile setProfile(Profile profile) {
         this.profile = profile;
         return this;

@@ -18,6 +18,11 @@ public class ProfileDao extends AbstractDao {
         super(cassandraOperations);
     }
 
+    public Optional<Profile> findOne(final String uuid) {
+        return Optional.ofNullable(getOperations().selectOne("select * from profile where id = " + uuid + "", Profile.class));
+    }
+
+
     public CompletableFuture<Optional<Profile>> findOneAsync(final String uuid) {
         final ObjectReadPromise<Profile> promise = new ObjectReadPromise<>();
         final QueryOptions qo = new QueryOptions();

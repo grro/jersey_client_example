@@ -47,13 +47,10 @@ public class AsyncResource {
 
     @GET
     @Path("/{user}")
-    public void userMaximumLoan(@Suspended final AsyncResponse async, @PathParam("user") final String user) throws ExecutionException, InterruptedException {
+    public void userMaximumLoan(@Suspended final AsyncResponse async, @PathParam("user") final String user) {
 
         UserExtendedProfile extendedProfile = new UserExtendedProfile();
         final Map<String, Throwable> errors = new ConcurrentHashMap<>();
-
-
-
 
         profileDao.findOneAsync(user)
                 .thenApply(optionalProfile -> optionalProfile.<NotFoundException>orElseThrow(NotFoundException::new))
