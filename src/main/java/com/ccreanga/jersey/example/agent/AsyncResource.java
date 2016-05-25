@@ -64,7 +64,7 @@ public class AsyncResource {
                   .thenCompose(extProfile -> extProfile.allowCredit() ? getLoanAsync(extProfile.getCreditScore().getValue(),  //if it's eligible for a loan get the maximum loan value; if not return =1
                                                                                      extProfile.getProfile().getPayment())  
                                                                       : CompletableFuture.completedFuture(-1))
-                  .exceptionally(error -> null)                                                                              // todo add error handling
+                  .exceptionally(error -> { throw new InternalServerErrorException(error); })                                // todo add error handling
                   .whenComplete((extProfile, throwable) -> async.resume(throwable == null ? extProfile : throwable));        // exception unwraping is missing
     }
 
