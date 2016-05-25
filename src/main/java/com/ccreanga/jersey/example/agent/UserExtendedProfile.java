@@ -24,7 +24,7 @@ public class UserExtendedProfile {
     public UserExtendedProfile() {
     }
 
-    private UserExtendedProfile(Profile profile, CreditScore creditScore, RentHistory rentHistory) {
+    public UserExtendedProfile(Profile profile, CreditScore creditScore, RentHistory rentHistory) {
         this.profile = profile;
         this.creditScore = creditScore;
         this.rentHistory = rentHistory;
