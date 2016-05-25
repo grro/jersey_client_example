@@ -49,8 +49,9 @@ public class AsyncResourceTest {
     @Test
     public void userMaximumLoan() throws Exception {
         try {
-            client.target("http://localhost:" + port + "/rx/async/"+ Constants.uuid1).request(MediaType.APPLICATION_JSON)
-                    .get(Integer.class);
+            client.target("http://localhost:" + port + "/rx/async/"+ Constants.uuid1)
+                  .request(MediaType.APPLICATION_JSON)
+                  .get(Integer.class);
         } catch (ClientErrorException clientError) {
             Assert.fail("got unexpected error " + clientError);
         }

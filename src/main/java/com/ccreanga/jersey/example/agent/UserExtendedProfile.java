@@ -1,10 +1,11 @@
 package com.ccreanga.jersey.example.agent;
 
 import com.ccreanga.jersey.example.domain.CreditScore;
+
 import com.ccreanga.jersey.example.domain.Profile;
 import com.ccreanga.jersey.example.domain.RentHistory;
 
-import java.util.Optional;
+
 
 public class UserExtendedProfile {
     private Profile profile;
@@ -23,7 +24,7 @@ public class UserExtendedProfile {
     public UserExtendedProfile() {
     }
 
-    public UserExtendedProfile(Profile profile, CreditScore creditScore, RentHistory rentHistory) {
+    private UserExtendedProfile(Profile profile, CreditScore creditScore, RentHistory rentHistory) {
         this.profile = profile;
         this.creditScore = creditScore;
         this.rentHistory = rentHistory;
@@ -34,12 +35,12 @@ public class UserExtendedProfile {
         return this;
     }
 
-    public Optional<Profile> getProfile() {
-        return profile==null?Optional.empty():Optional.of(profile);
+    public Profile getProfile() {
+        return profile;
     }
 
-    public Optional<CreditScore> getCreditScore() {
-        return creditScore==null?Optional.empty():Optional.of(creditScore);
+    public CreditScore getCreditScore() {
+        return creditScore;
     }
 
     public UserExtendedProfile setCreditScore(CreditScore creditScore) {
@@ -47,8 +48,8 @@ public class UserExtendedProfile {
         return this;
     }
 
-    public Optional<RentHistory> getRentHistory() {
-        return rentHistory==null?Optional.empty():Optional.of(rentHistory);
+    public RentHistory getRentHistory() {
+        return rentHistory;
     }
 
     public UserExtendedProfile setRentHistory(RentHistory rentHistory) {
@@ -56,6 +57,21 @@ public class UserExtendedProfile {
         return this;
     }
 
+    ///////////////////////////
+    // convenience methods
+    
+    public static UserExtendedProfile create(Profile profile) {
+        return new UserExtendedProfile(profile, null, null);
+    }
+    
+    public UserExtendedProfile withCreditScore(CreditScore creditScore) {
+        return new UserExtendedProfile(this.profile, creditScore, this.rentHistory);
+    }
+
+    public UserExtendedProfile withRentHistory(RentHistory rentHistory) {
+        return new UserExtendedProfile(this.profile, this.creditScore, rentHistory);
+    }
+    
     public boolean allowCredit() {
         return (creditScore!=null && creditScore.getValue() > 1) && (rentHistory!=null && rentHistory.getNoOfDelays() < 2);
     }
