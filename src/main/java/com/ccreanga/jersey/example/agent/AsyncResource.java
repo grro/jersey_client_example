@@ -60,7 +60,6 @@ public class AsyncResource {
                   .thenApply(triResult -> UserExtendedProfile.create(triResult.getResult1())
                                                              .withCreditScore(triResult.getResult2())
                                                              .withRentHistory(triResult.getResult3()))
-                  .thenCompose(extProfile -> CompletableFuture.completedFuture(extProfile))
                   .thenCompose(extProfile -> extProfile.allowCredit() ? getLoanAsync(extProfile.getCreditScore().getValue(),  //if it's eligible for a loan get the maximum loan value; if not return =1
                                                                                      extProfile.getProfile().getPayment())  
                                                                       : CompletableFuture.completedFuture(-1))
