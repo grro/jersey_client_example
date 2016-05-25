@@ -56,7 +56,7 @@ public class AsyncResource {
                   .thenApply(optionalProfile -> optionalProfile.<NotFoundException>orElseThrow(NotFoundException::new))
                   .thenCompose(profile -> join(CompletableFuture.completedFuture(profile),
                                                getCreditScoreAsync(profile.getCreditUuid()),
-                                               getRentHistoryAsync(profile.getRentUuid())))
+                                               getRentHistoryAsync(profile.getRentUuid()))) 
                   .thenApply(triResult -> UserExtendedProfile.create(triResult.getResult1())
                                                              .withCreditScore(triResult.getResult2())
                                                              .withRentHistory(triResult.getResult3()))
