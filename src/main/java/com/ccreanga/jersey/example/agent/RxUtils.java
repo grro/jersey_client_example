@@ -7,8 +7,8 @@ import java.util.concurrent.*;
 public class RxUtils {
     
     
-    public static <T, U> CompletionStage<BiResult<T, U>> concurrent(CompletionStage<T> future1, 
-                                                                    CompletionStage<U> future2) {
+    public static <T, U> CompletionStage<BiResult<T, U>> join(CompletionStage<T> future1, 
+                                                              CompletionStage<U> future2) {
         return future1.thenCombine(future2, (result1, result2) -> new BiResult<>(result1, result2)); 
     }
 
@@ -32,9 +32,9 @@ public class RxUtils {
     }
     
     
-    public static <T, U, V> CompletionStage<TriResult<T, U, V>> concurrent(CompletionStage<T> future1, 
-                                                                           CompletionStage<U> future2,
-                                                                           CompletionStage<V> future3) {
+    public static <T, U, V> CompletionStage<TriResult<T, U, V>> join(CompletionStage<T> future1, 
+                                                                     CompletionStage<U> future2,
+                                                                     CompletionStage<V> future3) {
         return future1.thenCombine(future2, (result1, result2) -> new BiResult<>(result1, result2))
                       .thenCombine(future3, (biResult, result3) -> new TriResult<>(biResult.getResult1(), 
                                                                                    biResult.getResult2(),

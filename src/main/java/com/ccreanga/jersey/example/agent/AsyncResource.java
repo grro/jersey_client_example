@@ -16,7 +16,7 @@ import javax.ws.rs.container.Suspended;
 import java.util.UUID;
 import java.util.concurrent.*;
 
-import static com.ccreanga.jersey.example.agent.RxUtils.concurrent;
+import static com.ccreanga.jersey.example.agent.RxUtils.join;
 
 
 @Path("async")
@@ -54,9 +54,9 @@ public class AsyncResource {
     public void userMaximumLoanAsync(@Suspended final AsyncResponse async, @PathParam("user") final String user) {
         profileDao.findOneAsync(user)
                   .thenApply(optionalProfile -> optionalProfile.<NotFoundException>orElseThrow(NotFoundException::new))
-                  .thenCompose(profile -> concurrent(CompletableFuture.completedFuture(profile),
-                                                     getCreditScoreAsync(profile.getCreditUuid()),
-                                                     getRentHistoryAsync(profile.getRentUuid())))
+                  .thenCompose(profile -> join(CompletableFuture.completedFuture(profile),
+                                               getCreditScoreAsync(profile.getCreditUuid()),
+                                               getRentHistoryAsync(profile.getRentUuid())))
                   .thenApply(triResult -> UserExtendedProfile.create(triResult.getResult1())
                                                              .withCreditScore(triResult.getResult2())
                                                              .withRentHistory(triResult.getResult3()))
