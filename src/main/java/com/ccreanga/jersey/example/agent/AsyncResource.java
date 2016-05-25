@@ -54,13 +54,12 @@ public class AsyncResource {
     public void userMaximumLoanAsync(@Suspended final AsyncResponse async, @PathParam("user") final String user) {
         profileDao.findOneAsync(user)
                   .thenApply(optionalProfile -> optionalProfile.<NotFoundException>orElseThrow(NotFoundException::new))
-                  .thenApply(profile -> UserExtendedProfile.create(profile))
-                  .thenCompose(extProfile -> concurrent(CompletableFuture.completedFuture(extProfile),
-                                                        getCreditScoreAsync(extProfile.getProfile().getCreditUuid()),
-                                                        getRentHistoryAsync(extProfile.getProfile().getRentUuid())))
-                  .thenApply(triResult -> triResult.getResult1()
-                                                   .withCreditScore(triResult.getResult2())
-                                                   .withRentHistory(triResult.getResult3()))
+                  .thenCompose(profile -> concurrent(CompletableFuture.completedFuture(profile),
+                                                     getCreditScoreAsync(profile.getCreditUuid()),
+                                                     getRentHistoryAsync(profile.getRentUuid())))
+                  .thenApply(triResult -> UserExtendedProfile.create(triResult.getResult1())
+                                                             .withCreditScore(triResult.getResult2())
+                                                             .withRentHistory(triResult.getResult3()))
                   .thenCompose(extProfile -> CompletableFuture.completedFuture(extProfile))
                   .thenCompose(extProfile -> extProfile.allowCredit() ? getLoanAsync(extProfile.getCreditScore().getValue(),  //if it's eligible for a loan get the maximum loan value; if not return =1
                                                                                      extProfile.getProfile().getPayment())  
